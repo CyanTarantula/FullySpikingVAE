@@ -44,18 +44,18 @@ def write_weight_hist(net, index):
         writer.add_histogram(root + '/' + name, m, index)
 
 def add_noise(input, percent_noise=0.2):
-    size_noise = 784
+    size_noise = 1024
     count_2 = int((percent_noise/2) * size_noise)
     noise = np.array(
         [-2]*count_2 + [0]*(size_noise - 2 * count_2) + [2]*count_2
     )
     np.random.shuffle(noise)
     noise = torch.from_numpy(noise)
-    noise = torch.reshape(noise, (1, 28, 28))
+    noise = torch.reshape(noise, (1, 32, 32))
 
     # print("Before: ", input)
     # noisy_img = input+torch.randn_like(input)*0.2
-    noisy_img = input + noise
+    noisy_img = input + noise.to(init_device, non_blocking=True)
     # print((torch.randn_like(input)*0.2).shape)
     noisy_img = torch.clip(noisy_img,-1.,1.)
     # print("After:", noisy_img)
