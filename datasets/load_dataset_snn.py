@@ -16,13 +16,15 @@ def load_mnist(data_path):
     transform_train = transforms.Compose([
         transforms.Resize((input_size,input_size)),
         transforms.ToTensor(),
-        SetRange
+        transforms.Normalize((0.5,), (0.5,)),
+#         SetRange
     ])
 
     transform_test = transforms.Compose([
         transforms.Resize((input_size,input_size)),
         transforms.ToTensor(),
-        SetRange
+        transforms.Normalize((0.5,), (0.5,)),
+#         SetRange
     ])
     trainset = torchvision.datasets.MNIST(data_path, train=True, transform=transform_train, download=True)
     testset = torchvision.datasets.MNIST(data_path, train=False, transform=transform_test, download=True)
