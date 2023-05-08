@@ -57,7 +57,7 @@ def compute_autoencoder_frechet_distance(gen, dataset_name, num_gen=5000, batch_
     stats = np.load(f'metrics/stats/{dataset_name.lower()}_test_{latent_dim}.npz')
     ref_mu, ref_sigma = stats["mu"], stats["sigma"]
 
-    feat_model.load_state_dict(torch.load(f'metrics/stat_checkpoints/{dataset_name.lower()}_{latent_dim}.pth'))
+    feat_model.load_state_dict(torch.load(f'metrics/stat_checkpoints/{dataset_name.lower()}_{latent_dim}.pth',map_location='cuda:0'))
 
     num_iters = int(np.ceil(num_gen / batch_size))
     l_feats = []
