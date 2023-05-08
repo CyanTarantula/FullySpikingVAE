@@ -116,6 +116,7 @@ def train(network, trainloader, opti, epoch):
             torchvision.utils.save_image((x_recon+1)/2, f'checkpoint/{args.name}/imgs/train/epoch{epoch}_recons.png')
             writer.add_images('Train/input_img', (noisy_img+1)/2, epoch)
             writer.add_images('Train/recons_img', (x_recon+1)/2, epoch)
+            break
 
     logging.info(f"Train [{epoch}] Loss: {loss_meter.avg} ReconsLoss: {recons_meter.avg} DISTANCE: {dist_meter.avg}")
     writer.add_scalar('Train/loss', loss_meter.avg, epoch)
@@ -186,6 +187,7 @@ def test(network, testloader, epoch):
                 torchvision.utils.save_image((x_recon+1)/2, f'checkpoint/{args.name}/imgs/test/epoch{epoch}_recons.png')
                 writer.add_images('Test/input_img', (noisy_img+1)/2, epoch)
                 writer.add_images('Test/recons_img', (x_recon+1)/2, epoch)
+                break
                 
 
     logging.info(f"Test [{epoch}] Loss: {loss_meter.avg} ReconsLoss: {recons_meter.avg} DISTANCE: {dist_meter.avg}")
